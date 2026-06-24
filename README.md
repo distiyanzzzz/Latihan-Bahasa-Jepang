@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Belajar Bahasa Jepang — latihan kosakata dan partikel untuk level JLPT N5 & N4.">
+  <title>Belajar Bahasa Jepang</title>
+  <style>
+    :root{
+      --green-700:#2e7d32;
+      --bg:#e8f5e9;
+      --card:#ffffff;
+      --text:#1b1b1b;
+      --muted:#546e54;
+      --focus: 3px solid #b9f6ca;
+      --radius:10px;
+      --max-width:800px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+    .container{
+      max-width:var(--max-width);
+      margin:20px auto;
+      padding:20px;
+    }
+    header{
+      background:var(--green-700);
+      color:#fff;
+      text-align:center;
+      padding:24px 12px;
+    }
+    header h1{margin:0;font-size:1.6rem}
+    header p{margin:6px 0 0;color:rgba(255,255,255,0.9)}
+    main{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    h2{color:var(--green-700);margin-top:0}
+    ul.vocab{padding-left:1.2rem}
+    ul.vocab li{margin:0.4rem 0;font-size:1.05rem}
+    /* ruby styling */
+    ruby{font-size:1.2rem}
+    rt{font-size:0.6rem}
+    p.muted{color:var(--muted);margin:0.4rem 0}
+    .card{padding:12px;border-radius:8px;background:#f7fff7}
+    form.exercise{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    input[type="text"]{
+      padding:8px 10px;border:1px solid #cbdcc7;border-radius:6px;font-size:1rem;
+    }
+    button{
+      background:var(--green-700);color:#fff;border:none;padding:8px 12px;border-radius:6px;font-size:1rem;
+      cursor:pointer;
+    }
+    button:focus,input:focus{outline:none;box-shadow:var(--focus)}
+    .feedback{margin-top:10px;font-weight:600}
+    footer{background:var(--green-700);color:#fff;text-align:center;padding:12px;margin-top:20px}
+    @media (max-width:520px){
+      header h1{font-size:1.25rem}
+      ruby{font-size:1rem}
+    }
+    .sr-only{
+      position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Belajar Bahasa Jepang</h1>
+      <p>Website latihan JLPT N5 &amp; N4</p>
+    </div>
+  </header>
+
+  <main class="container" id="content" role="main">
+    <section aria-labelledby="vocab-heading">
+      <h2 id="vocab-heading">Kosakata Hari Ini</h2>
+      <div class="card" aria-hidden="false">
+        <ul class="vocab">
+          <li><ruby lang="ja">水<rt>みず</rt></ruby> — Air</li>
+          <li><ruby lang="ja">山<rt>やま</rt></ruby> — Gunung</li>
+          <li><ruby lang="ja">川<rt>かわ</rt></ruby> — Sungai</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="particles-heading" style="margin-top:16px">
+      <h2 id="particles-heading">Partikel Dasar</h2>
+      <p class="muted">Contoh partikel umum dan bacaan:</p>
+      <ul>
+        <li><code lang="ja">は</code> (dibaca "wa") — partikel topik</li>
+        <li><code lang="ja">を</code> (dibaca "o") — objek langsung</li>
+        <li><code lang="ja">に</code> (dibaca "ni") — tujuan / waktu</li>
+        <li><code lang="ja">で</code> (dibaca "de") — tempat tindakan</li>
+        <li><code lang="ja">と</code> (dibaca "to") — dan / bersama</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="exercise-heading" style="margin-top:16px">
+      <h2 id="exercise-heading">Latihan</h2>
+      <p>Isi jawaban partikel yang tepat untuk kalimat berikut:</p>
+
+      <div class="card">
+        <p lang="ja" style="margin:0 0 8px">わたし ___ がっこうへ いきます。</p>
+
+        <form id="exerciseForm" class="exercise" aria-describedby="exercise-desc">
+          <label for="answer" class="sr-only">Masukkan partikel</label>
+          <input id="answer" name="answer" type="text" inputmode="text" autocomplete="off" aria-label="Jawaban partikel" placeholder="Tulis jawaban (contoh: は)">
+          <button type="submit">Periksa</button>
+        </form>
+
+        <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+        <p id="exercise-desc" class="muted" style="margin-top:8px">Catatan: partikel yang benar untuk kalimat ini adalah <code lang="ja">は</code> (dibaca "wa").</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Belajar Bahasa Jepang</div>
+  </footer>
+
+  <script>
+    (function(){
+      const form = document.getElementById('exerciseForm');
+      const input = document.getElementById('answer');
+      const feedback = document.getElementById('feedback');
+
+      // Accept a small set of correct answers: the particle 'は' and common romanizations
+      const correct = new Set(['は','wa','ha']);
+
+      function normalize(str){
+        if(!str) return '';
+        return str.trim().toLowerCase();
+      }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const val = normalize(input.value);
+        if(correct.has(val)){
+          feedback.textContent = 'Benar — jawaban: は (wa). Bagus!';
+          feedback.style.color = '#1b5e20';
+        } else if(val === ''){
+          feedback.textContent = 'Masukkan jawaban terlebih dahulu.';
+          feedback.style.color = '#b71c1c';
+        } else {
+          feedback.textContent = 'Belum tepat — coba lagi. Petunjuk: partikel topik yang biasa muncul setelah subjek dalam kalimat ini.';
+          feedback.style.color = '#b71c1c';
+        }
+      });
+
+      // Allow Enter to submit easily
+      input.addEventListener('keydown', function(ev){
+        if(ev.key === 'Enter'){ ev.preventDefault(); form.requestSubmit(); }
+      });
+    })();
+  </script>
+</body>
+</html>
